@@ -54,6 +54,7 @@ if($_POST['submit']=='Login')
                         $_SESSION['nome']=$user->getNome();
                         $_SESSION['login']=$user->getLogin();
                         $_SESSION['area']=$user->getArea();
+						$_SESSION['empresa']=$user->getEmpresa();
                         $_SESSION['usertype']=$user->getIsAdmin();
 			$_SESSION['id'] = $user->getId();
 			$_SESSION['lembrarMe'] = $_POST['lembrarMe'];

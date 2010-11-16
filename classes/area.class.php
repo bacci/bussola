@@ -24,6 +24,7 @@ if($cdb->PConnect($host, $user, $pass, $banco)){
 class Area {
     private $Id         = 0;
     private $NomeArea   = null;
+	private $Empresa    = null;
     private $Erro       = null;
 
     public function getId() {
@@ -42,6 +43,14 @@ class Area {
         $this->NomeArea = $NomeArea;
     }
 
+	public function getEmpresa() {
+        return $this->Empresa;
+    }
+
+    public function setEmpresa($Empresa) {
+        $this->Empresa = $Empresa;
+    }
+
     public function getErro() {
         return $this->Erro;
     }
@@ -53,10 +62,12 @@ class Area {
     public function insereArea(){
         $sql='INSERT INTO area (
             id,
-            nome
+            nome,
+			empresa
             ) VALUES (
             NULL,
-            "'.$this->NomeArea.'"
+            "'.$this->NomeArea.'",
+			"'.$this->Empresa.'"
             )';
         if($GLOBALS['cdb']->Execute($sql)){
            $pasta = "area_".$GLOBALS['cdb']->Insert_ID();
@@ -74,7 +85,7 @@ class Area {
     }
 
     public function alteraArea(){
-        $sql='UPDATE area SET nome="'.$this->NomeArea.'" WHERE id="'.$this->Id.'"';
+        $sql='UPDATE area SET nome="'.$this->NomeArea.'", empresa="'.$this->Empresa.'" WHERE id="'.$this->Id.'"';
         if($GLOBALS['cdb']->Execute($sql)){
             return true;
         } else {
@@ -95,21 +106,26 @@ class Area {
         }
     }
 
-    public function getArea(){
+    public function getArea($empresa){
         $sql='SELECT * FROM area';
+		if($empresa>0){
+			$sql.=' WHERE empresa = "'.$empresa.'"';
+		}
         if($this->getId()>0){
-            $sql.=' WHERE id = "'.$this->getId().'"';
+            $sql.=' WHERE  id = "'.$this->getId().'"';
         }
         $rs=$GLOBALS['cdb']->Execute($sql);
         if($rs){
             if($this->getId()>0){
                 $this->setNomeArea($rs->fields['nome']);
+				$this->setEmpresa($rs->fields['empresa']);
                 return $this;
             } else {
                 while(!$rs->EOF){
-                    $a=new Area();
+					$a=new Area();
                     $a->setId($rs->fields['id']);
                     $a->setNomeArea($rs->fields['nome']);
+					$a->setEmpresa($rs->fields['empresa']);
                     $b[]=$a;
                     $rs->MoveNext();
                 }
@@ -136,5 +152,4 @@ class Area {
     }
 
 }
-
 ?>

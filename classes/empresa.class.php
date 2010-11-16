@@ -124,14 +124,15 @@ class Empresa {
 
     public function comboEmpresa($selected=null){
         $a=new Empresa();
-        $b=$a->getEmpresaNome();
-        $tmp="<select name='empresa'>";
+        $b=$a->getEmpresa();
+        $tmp="<select name='empresa' onChange='Dados(this.value);'>";
+		$tmp.="<option value='0'>Selecione a Empresa</option>";
         foreach ($b as $obj){
             $tmp.="<option value='".$obj->getId()."'";
             if($selected==$obj->getId()){
                 $tmp.=" selected='selected'";
             }
-            $tmp.=">".$obj->getEmpresa()."</option>";
+            $tmp.=">".$obj->getEmpresaNome()."</option>";
         }
         $tmp.="</select>";
         return $tmp;

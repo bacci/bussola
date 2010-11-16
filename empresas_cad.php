@@ -29,6 +29,7 @@ if($action=='cadastrar'){
         header('Location: empresas.php');
     } else {
         $emp->setEmpresaNome($nome_empresa);
+		$emp->setMsgEmpresa($mensagem);
         $emp->insereEmpresa();
         $_SESSION['message']="Empresa $nome_empresa criada com sucesso!";
         header('Location: empresas.php');

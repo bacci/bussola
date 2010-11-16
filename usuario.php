@@ -14,6 +14,7 @@ if($_SESSION['id']){
     } else {
         $area=$_SESSION['area'];
     }
+
     ?>
 <?
 } else {

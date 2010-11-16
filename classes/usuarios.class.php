@@ -37,6 +37,20 @@ function getNomeArea($ide){
     }
 }
 
+function getNomeEmpresa($ide){
+    if($ide=="all"){
+        return "admin";
+    } else {
+        $sql='SELECT empresa FROM empresa WHERE id = "'.$ide.'"';
+        $rs=$GLOBALS['cdb']->Execute($sql);
+        if($rs){
+                return $rs->fields['empresa'];
+            } else {
+                return '';
+            }
+    }
+}
+
 class Usuarios {
 
     private $Id         = null;
@@ -44,6 +58,7 @@ class Usuarios {
     private $Login      = null;
     private $Senha      = null;
     private $Area       = null;
+	private $Empresa    = null;
     private $IsAdmin    = 0;
     private $Status     = 0;
     private $LastLogin  = null;
@@ -105,6 +120,14 @@ class Usuarios {
         $this->Area = $Area;
     }
 
+	public function getEmpresa() {
+        return $this->Empresa;
+    }
+
+    public function setEmpresa($Empresa) {
+        $this->Empresa = $Empresa;
+    }
+
     public function getLastLogin() {
         return $this->LastLogin;
     }
@@ -129,6 +152,7 @@ class Usuarios {
                     $this->Nome=$rs->fields["nome"];
                     $this->Login=$rs->fields["login"];
                     $this->Area=$rs->fields["area"];
+					$this->Empresa=$rs->fields["empresa"];
                     $this->LastLogin=$rs->fields["lastlogin"];
                     $this->IsAdmin=$rs->fields["isadmin"];
                     $this->Status=$rs->fields["status"];
@@ -151,13 +175,15 @@ class Usuarios {
                 nome,
                 login,
                 senha,
-                area
+                area,
+				empresa
             ) VALUES (
                 NULL,
                 "'.mysql_real_escape_string($this->Nome).'",
                 "'.mysql_real_escape_string($this->Login).'",
                 "'.md5($this->Senha).'",
-                "'.$this->Area.'"
+                "'.$this->Area.'",
+				"'.$this->Empresa.'"
             )';
             if($GLOBALS['cdb']->Execute($sql)){
                 $_SESSION['message']="Usuário '".$this->Nome."' criado com o login '".$this->Login."'.";
@@ -216,6 +242,7 @@ class Usuarios {
           lastlogin datetime(0) DEFAULT NULL,
           isadmin tinyint(1) DEFAULT 0,
           status tinyint(1) DEFAULT 1,
+		  empresa int(11),
           PRIMARY KEY (id),
           KEY `nome` (`nome`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;';
@@ -235,6 +262,7 @@ class Usuarios {
                 $this->setIsAdmin($rs->fields['isadmin']);
                 $this->setStatus($rs->fields['status']);
                 $this->setLastLogin($rs->fields['lastlogin']);
+				$this->setEmpresa($rs->fields['empresa']);
                 return $this;
             } else {
                 while(!$rs->EOF){
@@ -246,6 +274,7 @@ class Usuarios {
                     $a->setIsAdmin($rs->fields['isadmin']);
                     $a->setStatus($rs->fields['status']);
                     $a->setLastLogin($rs->fields['lastlogin']);
+					$a->setEmpresa($rs->fields['empresa']);
                     $b[]=$a;
                     $rs->MoveNext();
                 }
@@ -275,6 +304,10 @@ class Usuarios {
 
 		if($this->Area!=NULL){
 			$valor["area"]=$this->Area;
+		}
+
+		if($this->Empresa!=NULL){
+			$valor["empresa"]=$this->Empresa;
 		}
 
 		if($this->LastLogin!=NULL){

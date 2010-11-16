@@ -31,9 +31,12 @@ if($_GET['do']=='download'){
 }
 $temp=$arr->getArquivoByArea($area);
 ?>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Bussola</title>
+<title>Bussola Seguros ::: O seguro na medida da sua necessidade</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
 <link rel=StyleSheet href="lib/css/view.css" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script type="text/javascript" src="lib/jquery/jquery-1.4.2.min.js"></script>
@@ -67,7 +70,34 @@ if(strlen($_SESSION['message'])>0){
 <div><? echo $_SESSION['message']; unset($_SESSION['message']); ?></div>
 <? } ?>
 <body>
-    <?
+<div class="main">
+  <div class="header">
+    <div class="block_header">
+      <div class="RSS"></div>
+      <div class="clr"></div>
+      <div class="logo"><a href="index.php"><img src="images/logo.gif" width="422" height="142" border="0" alt="logo" /></a></div>
+      <div class="menu">
+        <ul>
+          <li><a href="index.php"><span class="bgi">Home</span></a></li>
+          <li><a href="empresa.html"><span class="bgi">Empresa</span></a></li>
+          <li><a href="seguros.html"><span class="bgi">Seguros</span></a></li>
+          <li><a href="#"><span class="bgi">Sinistro</span></a></li>
+          <li><a href="contato.html"><span class="bgi">Contato</span></a></li>
+        </ul>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="clr"></div>
+  <div class="tip">
+    <div class="Menu_resize">
+    </div>
+  </div>
+  <div class="body">
+    <div class="body_resize">
+      <div class="full_size">
+        <p align="left">
+            <?
     if($_SESSION['usertype']){
     ?>
     <a href="arquivos_cad.php">Cadastrar novo Arquivo</a><br />
@@ -78,14 +108,14 @@ if(strlen($_SESSION['message'])>0){
 
     <table id="tabela_arquivos" class="tablesorter">
     <thead>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Tamanho</th>
-            <th>Area</th>
-            <th>Descrição</th>
-            <th>Enviado em</th>
-            <th>Opção</th>
-        </thead>
+            <th width="5%">Id</th>
+            <th width="16%">Nome</th>
+            <th width="8%">Tamanho</th>
+            <th width="5%">Area</th>
+            <th width="33%">Descrição</th>
+            <th width="14%">Enviado em</th>
+            <th width="18%">Opção</th>
+        <td width="1%"></thead>
         <tbody>
     <?
     if($temp){
@@ -124,7 +154,21 @@ if(strlen($_SESSION['message'])>0){
     <? } ?>
         </tbody>
 </table>
-
+        <p>&nbsp;</p>
+		<div class="bg1"></div>
+        <p align="right"><a href="index.php?logoff=true"><img src="images/icon-exit.png" alt="img" width="64" height="64" border="0" /></a></p>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<div class="footer">
+  <div class="resize">
+    <p class="footer_logo">&nbsp;</p>
+    <div>© Copyright bussolaseguros.com.br | made by <a href="http://iguanabr.com.br/" target="_blank">iguanaBR</a></div>
+  </div>
+  <p class="clr"></p>
+</div>
 </body>
 </html>
-
