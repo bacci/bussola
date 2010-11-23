@@ -32,6 +32,9 @@ if(isset($_FILES['userfile']))
     $tipo = $upArquivo->tipo;
     $tamanho = $upArquivo->tamanho;
   }
+} else {
+	$area = null;
+	$nome = null;
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -108,7 +111,7 @@ if(strlen($_SESSION['message'])>0){
         <td><?
         include('classes/area.class.php');
         $arr=new Area();
-        echo $arr->comboArea($area);
+        echo $arr->comboArea($area, true);
         ?></td>
     </tr>
     <tr>

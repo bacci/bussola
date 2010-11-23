@@ -6,9 +6,9 @@
  * @author Giancarlo Bacci
  */
 $host="localhost";
-$user="bussola";
-$pass="bussola";
-$banco="bussola";
+$user="busso4";
+$pass="rmrz+yhb";
+$banco="busso4";
 if(is_file('../adodb5/adodb.inc.php')){
     include '../adodb5/adodb.inc.php';
 } else {

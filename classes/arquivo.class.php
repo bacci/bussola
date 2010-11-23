@@ -11,9 +11,9 @@
  */
 
 $host="localhost";
-$user="bussola";
-$pass="bussola";
-$banco="bussola";
+$user="busso4";
+$pass="rmrz+yhb";
+$banco="busso4";
 if(is_file('../adodb5/adodb.inc.php')){
     include '../adodb5/adodb.inc.php';
 } else {
@@ -39,13 +39,13 @@ class Arquivo
     var $tipo       = null;
     var $nome       = null;
     var $pasta       = null;
-    var $area       = null;
+    var $areaa       = null;
     var $descricao  = null;
     var $tamanho    = null;
     var $erro       = null;
     var $datacad    = null;
 
-    public function UploadArquivo($arquivo, $pasta, $tipos, $area, $descricao)
+    public function UploadArquivo($arquivo, $pasta, $tipos, $areaa, $descricao)
     {
         $_SESSION['message']="";
       if(isset($arquivo))
@@ -65,7 +65,7 @@ class Arquivo
                   $this->nome=$nomeFinal . $tipo;
                   $this->pasta=$pasta;
                   $this->tipo=$tipo;
-                  $this->area=$area;
+                  $this->areaa=$areaa;
                   $this->descricao=$descricao;
                   $this->tamanho=$arquivo['size'];
                   $this->erro=null;
@@ -113,7 +113,7 @@ class Arquivo
             '".$this->pasta."',
             '".$this->tamanho."',
             '".$this->descricao."',
-            '".$this->area."',
+            '".$this->areaa."',
             NOW()
             )";
             if($GLOBALS["cdb"]->Execute($sql)){
@@ -124,12 +124,19 @@ class Arquivo
             }
     }
 
-    public function getArquivoByArea($area){
+    public function getArquivoByArea($area, $empresa=null){
         $sql='SELECT * FROM arquivos';
-        if($area!="all"){
-            $sql.=' WHERE area = "'.$area.'"';
-        }
-        $sql.=" ORDER BY area, nome";
+		if($area[0]!="all"){
+			$sql.=' WHERE ';
+			if(count($area>0)){
+				foreach($area as $ar){
+					$sql.=' area = "'.$ar.'" OR ';
+				}
+				$sql=substr($sql, 0, -3);
+			}
+		}
+
+        $sql.=" ORDER BY nome";
         $rs=$GLOBALS['cdb']->Execute($sql);
         if($rs->_numOfRows>0){
             $b=array();
@@ -140,7 +147,7 @@ class Arquivo
                 $a->pasta=$rs->fields['pasta'];
                 $a->tamanho=$rs->fields['tamanho'];
                 $a->descricao=$rs->fields['descricao'];
-                $a->area=$rs->fields['area'];
+                $a->areaa=$rs->fields['area'];
                 $a->datacad=$rs->fields['datacad'];
                 $b[]=$a;
                 $rs->MoveNext();
@@ -189,6 +196,7 @@ class Arquivo
 		ob_clean();
 		flush();
 		readfile($file);
+		exit;
 	}
 
     public function getArquivoById($id){
@@ -200,36 +208,28 @@ class Arquivo
             $a->pasta=$rs->fields['pasta'];
             $a->tamanho=$rs->fields['tamanho'];
             $a->descricao=$rs->fields['descricao'];
-            $a->area=$rs->fields['area'];
+            $a->areaa=$rs->fields['area'];
             $a->datacad=$rs->fields['datacad'];
             return $a;
     }
 
     //public function download($basedir, $filename, $force_download = false, $checklen = null) {
     public function download($ide, $area) {
-            $file=new Arquivo();
-            $arquivo=$file->getArquivoById($ide);
-            $down=true;
-            if($arquivo->area<>$area){
-                $down=false;
-            }
-            if($area=="all"){
-                $down=true;
-            }
+	$file=new Arquivo();
+	$arquivo=$file->getArquivoById($ide);
+	$down=false;
+	if(!in_array($arquivo->areaa, $area)){
+		$down=false;
+	} else {
+		$down=true;
+	}
+
+	if($area[0]=="all"){
+		$down=true;
+	}
             
             if($down) {
                 return $arquivo->downloadArquivo($arquivo->pasta, $arquivo->nome, true);
-//		header("Content-Type: application/save");
-//                header('Content-Description: File Transfer');
-//		header('Expires: 0'); // maybe Mon, 26 Jul 1997 05:00:00 GMT ?
-//		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-//		header('Cache-Control: public');
-//		header('Pragma: public');
-//		header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
-//        	header('Content-Disposition: attachment; filename='.$arquivo->nome);
-//		ob_clean();
-//		flush();
-//		readfile($arquivo->pasta.$arquivo->nome);
             } else {
                 header('Location: logmein.php?logoff=true');
             }
@@ -276,5 +276,16 @@ class Arquivo
                         'bmp'  => array('image/bmp', true)
                                 );
     }
+
+	public function getDatacad(){
+		$last=$this->datacad;
+		$datetime=explode(' ',$last);
+		$data=explode('-',$datetime[0]);
+		if(count($data)==3){
+			return $data[2].'/'.$data[1].'/'.$data[0].' às '.$datetime[1];
+		} else {
+			return $last;
+		}
+	}
 }
 ?>

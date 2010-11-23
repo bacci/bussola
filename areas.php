@@ -1,4 +1,5 @@
 <?
+
 include('usuario.php');
 if(!$_SESSION['usertype']){
     header('Location: index.php');

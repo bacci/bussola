@@ -86,14 +86,13 @@ if(strlen($_SESSION['message'])>0){
     <div class="body_resize">
       <div class="full_size">
     <a href="empresas_cad.php">Cadastrar nova Empresa</a><br />
-
-    <table id="tabela_areas" class="tablesorter">
+    <table id="tabela_empresas" class="tablesorter">
     <thead>
-        <th>Id</th>
-        <th>Nome da Empresa</th>
-		<th>Mensagem</th>
-        <th>Opção</th>
-    </thead>
+        <th height="20">Id</th>
+        <th height="20">Nome da Empresa</th>
+		<th height="20">Mensagem</th>
+        <th height="20">Opção</th>
+    <td></thead>
     <tbody>
     <?
     foreach($temp as $obj){

@@ -101,12 +101,13 @@ if(strlen($_SESSION['message'])>0){
     <tbody>
     <?
     foreach($temp as $obj){
+		$arr=explode(",",$obj->getArea());
     ?>
     <tr>
         <td><? echo $obj->getId(); ?></td>
         <td><? echo $obj->getNome(); ?></td>
         <td><? echo $obj->getLogin(); ?></td>
-        <td><? echo getNomeArea($obj->getArea()) ?></td>
+        <td><? foreach($arr as $area){ echo getNomeArea($area)." "; } ?></td>
 		<td><? echo getNomeEmpresa($obj->getEmpresa()) ?></td>
         <td><?
         if($obj->getLastLogin()==null){

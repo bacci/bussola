@@ -6,9 +6,9 @@
  * @author Giancarlo Bacci
  */
 $host="localhost";
-$user="bussola";
-$pass="bussola";
-$banco="bussola";
+$user="busso4";
+$pass="rmrz+yhb";
+$banco="busso4";
 if(is_file('../adodb5/adodb.inc.php')){
     include '../adodb5/adodb.inc.php';
 } else {
@@ -136,7 +136,7 @@ class Area {
         }
     }
 
-    public function comboArea($selected=null){
+    public function comboArea($selected=null, $showempresa=false){
         $a=new Area();
         $b=$a->getArea();
         $tmp="<select name='area'>";
@@ -145,7 +145,11 @@ class Area {
             if($selected==$obj->getId()){
                 $tmp.=" selected='selected'";
             }
-            $tmp.=">".$obj->getNomeArea()."</option>";
+            $tmp.=">".$obj->getNomeArea();
+		if($showempresa){
+			$tmp.= ' ('.getNomeEmpresa($obj->getEmpresa()).')';
+		}
+		"</option>";
         }
         $tmp.="</select>";
         return $tmp;

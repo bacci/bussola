@@ -6,9 +6,9 @@
  * @author Giancarlo Bacci
  */
 $host="localhost";
-$user="bussola";
-$pass="bussola";
-$banco="bussola";
+$user="busso4";
+$pass="rmrz+yhb";
+$banco="busso4";
 if(is_file('../adodb5/adodb.inc.php')){
     include '../adodb5/adodb.inc.php';
 } else {
@@ -129,7 +129,14 @@ class Usuarios {
     }
 
     public function getLastLogin() {
-        return $this->LastLogin;
+	$last=$this->LastLogin;
+	$datetime=explode(' ',$last);
+	$data=explode('-',$datetime[0]);
+	if(count($data)==3){
+	        return $data[2].'/'.$data[1].'/'.$data[0].' às '.$datetime[1];
+	} else {
+		return $last;
+	}
     }
 
     public function setLastLogin($LastLogin) {
@@ -156,10 +163,12 @@ class Usuarios {
                     $this->LastLogin=$rs->fields["lastlogin"];
                     $this->IsAdmin=$rs->fields["isadmin"];
                     $this->Status=$rs->fields["status"];
+			$sql="UPDATE usuarios SET lastlogin = '".date('Y-m-d h:i:s')."' WHERE login LIKE '".mysql_real_escape_string($this->Login)."' AND senha='".md5($this->Senha)."'";
+			$rs=$GLOBALS["cdb"]->Execute($sql);
                     return $this;
                     
             } else {
-                $_SESSION['message']='Usuário e ou senha inválidos'.$sql;
+                $_SESSION['message']='Usuário e ou senha inválidos';
                     return false;
             }
 
@@ -194,7 +203,7 @@ class Usuarios {
     }
 
     private function verificaUsuario(){
-        echo $sql='SELECT nome FROM usuarios WHERE login LIKE "'.$this->Login.'"';
+        $sql='SELECT nome FROM usuarios WHERE login LIKE "'.$this->Login.'"';
         $rs=$GLOBALS['cdb']->Execute($sql);
         if($rs->_numOfRows>0){
             $_SESSION['message']='Usuário já existe com o nome de "'.$rs->fields['nome'].'"';

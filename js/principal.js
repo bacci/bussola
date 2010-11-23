@@ -62,8 +62,6 @@
 			var codigo    =  item.getElementsByTagName("codigo")[0].firstChild.nodeValue;
 			var descricao =  item.getElementsByTagName("descricao")[0].firstChild.nodeValue;
 
-	        idOpcao.innerHTML = "--Selecione a area--";
-
 			//cria um novo option dinamicamente
 			var novo = document.createElement("option");
 			    //atribui um ID a esse elemento

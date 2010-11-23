@@ -7,13 +7,8 @@ session_set_cookie_params(2*7*24*60*60);
 
 session_start();
 
-if($_SESSION['id']){ 
+if($_SESSION['id']){
     include 'classes/usuarios.class.php';
-    if($_SESSION['area']==0){
-        $area="all";
-    } else {
-        $area=$_SESSION['area'];
-    }
 
     ?>
 <?

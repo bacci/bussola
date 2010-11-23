@@ -11,8 +11,7 @@ $senha_usuario=isset($_POST["senha_usuario"]) ? $_POST["senha_usuario"] : null;
 $nome_usuario=isset($_POST["nome_usuario"]) ? $_POST["nome_usuario"] : null;
 $status_usuario=isset($_POST["status_usuario"]) ? $_POST["status_usuario"] : null;
 $empresa=isset($_POST["empresa"]) ? $_POST["empresa"] : null;
-$area=isset($_POST["listAreas"]) ? $_POST["listAreas"] : null;
-
+$area=isset($_POST["listAreas"]) ? implode(',',$_POST["listAreas"]) : null;
 if($action=='editar'){
     $id=isset($_GET["id"]) ? $_GET['id'] : null;
     $usuario=new Usuarios();
@@ -124,12 +123,24 @@ if($action=='cadastrar'){
     <tr>
         <td class="campo">Área:</td>
         <td>
-            <select name="listAreas">
-			<? if(!$area>0){ ?>
+            <select name="listAreas[]" id="listAreas" multiple="multiple">
+			<?
+			$arr=explode(",",$area);
+			if(count($arr)==1){ ?>
             <option id="opcoes" value="0">--Primeiro selecione a empresa--</option>
-			<? } else { ?>
-			<option id="opcoes" value="<? echo $area ?>"><? echo getNomeArea($area); ?></option>
-			<? } ?>
+			<?
+			} else {
+				foreach($arr as $area){
+					if($area!=null){ ?>
+					<option id="opcoes" value="<? echo $area ?>" selected="selected"><? echo $area.getNomeArea($area); ?></option>
+					<?
+					}
+				}
+				?>
+				<option id="opcoes" value="">---------</option>
+			<?
+			}
+			?>
 	     </select>
         </td>
     </tr>

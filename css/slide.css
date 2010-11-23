@@ -115,9 +115,9 @@ Version: 1.0
 
 #panel {
 	width: 100%;
-	height: 270px;
+	height: 200px;
 	color: #999999;
-	background: #272727;
+	background: url(../images/bg-top.jpg) repeat-x 0 0;
 	overflow: hidden;
 	position: relative;
 	z-index: 3;
@@ -190,7 +190,7 @@ Version: 1.0
 
 #panel .content input.field {
 	border: 1px #1A1A1A solid;
-	background: #414141;
+	background: #e5e5e5;
 	margin-right: 5px;
 	margin-top: 4px;
 	width: 200px;
@@ -199,7 +199,7 @@ Version: 1.0
 }
 
 #panel .content input:focus.field {
-	background: #545454;
+	background: #f1f1f1;
 }
 
 /* BUTTONS */

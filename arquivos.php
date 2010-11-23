@@ -1,35 +1,23 @@
 <?
 include('usuario.php');
-if($_SESSION['usertype']){
-    $area="all";
-} else {
-    $area=$_SESSION['area'];
-}
+
 include('classes/arquivo.class.php');
 
+$area_user=$_SESSION['usertype'] ? array('all') : explode(',',$_SESSION['area']);
 $arr=new Arquivo();
 if($_GET['do']=='excluir'){
     $ide=isset($_GET['id']) ? mysql_real_escape_string($_GET['id']) : null;
     $arr2=new Arquivo();
     $arr2->id=$ide;
-    $arr2->area=$area;
     $arr2->apagaArquivo();
     if($arr2->erro!=null){
         $_SESSION['message']=$arr2->erro;
     }
 }
 if($_GET['do']=='download'){
-//    $arquivo=$_GET['nome'];
-//    $pasta=$_GET['pasta'];
-//    $arr->download($pasta, $arquivo, true);
-    //echo $_SESSION["message"]=$_GET['id'].'--'. $area;
-    //$teste=$arr->getArquivoById($_GET['id']);
-    //echo $teste->area.'--'.$area;
-
-    $arr->download($_GET['id'], $area);
-
+	$arr->download($_GET['id'], $area_user);
 }
-$temp=$arr->getArquivoByArea($area);
+$temp=$arr->getArquivoByArea($area_user);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -47,7 +35,7 @@ $temp=$arr->getArquivoByArea($area);
 			$("#tabela_arquivos").tablesorter( {
                             sortList: [[0,1]],
                             headers: {
-                                6: {
+                                4: {
                                     sorter: false
                                 }
                             }
@@ -108,14 +96,12 @@ if(strlen($_SESSION['message'])>0){
 
     <table id="tabela_arquivos" class="tablesorter">
     <thead>
-            <th width="5%">Id</th>
-            <th width="16%">Nome</th>
-            <th width="8%">Tamanho</th>
-            <th width="5%">Area</th>
-            <th width="33%">Descrição</th>
-            <th width="14%">Enviado em</th>
-            <th width="18%">Opção</th>
-        <td width="1%"></thead>
+            <th width="15%" height="15">Nome</th>
+            <th width="10%" height="15">Tamanho</th>
+            <th width="40%" height="15">Descrição</th>
+            <th width="14%" height="15">Enviado em</th>
+            <th width="20%" height="15">Opção</th>
+        </thead>
         <tbody>
     <?
     if($temp){
@@ -123,16 +109,17 @@ if(strlen($_SESSION['message'])>0){
             echo $thead;
         ?>
         <tr>
-            <td><? echo $obj->id; ?></td>
             <td><? echo $obj->nome; ?></td>
-            <td><? echo $obj->tamanho; ?></td>
-            <td><? echo getNomeArea($obj->area); ?></td>
+            <td><? 
+		$tam=$obj->tamanho/1024;
+		echo $tam > 1024 ? round(($tam/1024),1).' Mb' : round($tam).' Kb';
+		?></td>
             <td><? echo $obj->descricao; ?></td>
             <td><?
             if($obj->datacad==null){
                 echo "N/A";
             } else {
-                echo $obj->datacad;
+                echo $obj->getDatacad();
             }?></td>
             <td>
                 <?

@@ -168,12 +168,10 @@ p#controls {
 			<div class="left">
 				<h1><font face="Arial, Helvetica, sans-serif">Bússola Seguros</font></h1>
 				<h2><font face="Arial, Helvetica, sans-serif"><em>O Seguro na medida da sua Necessidade</em></font></h2>		
-				<p class="grey">Esta é uma área de acesso restrito</p>
 			</div>
 			<div class="left">
 				<!-- Login Form -->
 				<form action="index.php" class="clearfix" method="post">
-					<h2><font face="Arial, Helvetica, sans-serif">Acesso para Clientes</font></h2>
             <?php
             echo $_SESSION['message'];
             if($_SESSION['msg']['login-err'])
@@ -182,11 +180,11 @@ p#controls {
                     unset($_SESSION['msg']['login-err']);
             }
             ?>
-					<label class="grey" for="log"><font face="Arial, Helvetica, sans-serif">Login:</font></label>
+					<label class="grey" for="log"><font face="Arial, Helvetica, sans-serif" color="#FFFFFF">Login:</font></label>
 					<input class="field" type="text" name="usuario" id="username" value="" style="color: #000" size="23" />
-					<label class="grey" for="pwd"><font face="Arial, Helvetica, sans-serif">Senha:</font></label>
+					<label class="grey" for="pwd"><font face="Arial, Helvetica, sans-serif" color="#FFFFFF">Senha:</font></label>
                                         <input class="field" type="password" name="senha" id="password" size="23" style="color: #000" />
-	            	<label><input name="lembrarMe" id="rememberMe" type="checkbox" checked="checked" value="1" /> &nbsp;<font face="Arial, Helvetica, sans-serif">Continuar Conectado</font></label>
+	            	<label><input name="lembrarMe" id="rememberMe" type="checkbox" checked="checked" value="1" /> &nbsp;<font face="Arial, Helvetica, sans-serif" color="#FFFFFF">Continuar Conectado</font></label>
         			<div class="clear"></div>
 					<input type="submit" name="submit" value="Login" class="bt_login" />
 			  </form>
@@ -200,10 +198,8 @@ p#controls {
 	<div class="tab">
 		<ul class="login">
 			<li class="left">&nbsp;</li>
-			<li><font face="Arial, Helvetica, sans-serif">Olá Visitante!</font></li>
-			<li class="sep">|</li>
 			<li id="toggle">
-				<a id="open" class="open" href="#"><font face="Arial, Helvetica, sans-serif">Acesso Restrito</font></a>
+				<a id="open" class="open" href="#"><font face="Arial, Helvetica, sans-serif" color="#FFFFFF">Acesso Restrito</font></a>
 				<a id="close" style="display: none;" class="close" href="#"><font face="Arial, Helvetica, sans-serif">Fechar Painel</font></a>			
 			</li>
 			<li class="right">&nbsp;</li>
@@ -216,10 +212,10 @@ p#controls {
     <div class="block_header">
       <div class="RSS"></div>
       <div class="clr"></div>
-      <div class="logo"><a href="index.html"><img src="images/logo.gif" width="421" height="143" border="0" alt="logo" /></a></div>
+      <div class="logo"><a href="index.php"><img src="images/logo.gif" width="421" height="143" border="0" alt="logo" /></a></div>
       <div class="menu">
         <ul>
-          <li><a href="index.html" class="active"><span class="bgi">Home<span></span></span></a></li>
+          <li><a href="index.php" class="active"><span class="bgi">Home<span></span></span></a></li>
           <li><a href="empresa.html"><span class="bgi">Empresa<span></span></span></a></li>
           <li><a href="seguros.html"><span class="bgi">Seguros<span></span></span></a></li>
           <li><a href="#"><span class="bgi">Sinistro<span></span></span></a></li>
@@ -231,46 +227,19 @@ p#controls {
   </div>
   <div class="slider">
     <div class="slice1">
-      <div class="slice2" id="slider">
-        <ul>
-          <li>
-            <div>
-              <p class="img"><img src="images/img_simple_1.jpg" alt="screen 1" width="309" height="236" /></p>
-              <img class="h2top" src="images/tt-02.png" width="448" height="64" alt="img" />
-              <p>Saiba por que é importante a prevenção dos bens de sua empresa, conheça nosso sistema integrado de processamento de seguros, específico para a sua necessidade.</p>
-              <p>&nbsp;</p>
-              <p><a href="#"><img src="images/bt-ler.gif" width="91" height="26" border="0" alt="view" /></a></p>
-            </div>
-          </li>
-          <li>
+      <div class="slice2">
             <div>
               <p class="img"><img src="images/img_simple_2.jpg" alt="screen 1" width="309" height="236" /></p>
               <img class="h2top" src="images/tt-01.png" width="448" height="64" alt="img" />
-              <p>Dicas importantes sobre seguro em geral... O que fazer, para quem ligar, tenha em mãos os números de telefone que você pode usar numa emegência.</p>
+              <p>Dicas importantes sobre seguro em geral... O que fazer, para quem ligar, tenha em mãos os números de telefone para usar em caso de emegência.</p>
               <p>&nbsp;</p>
               <p><a href="#"><img src="images/bt-ler.gif" width="91" height="26" border="0" alt="view" /></a></p>
             </div>
-          </li>
-          <li>
-            <div>
-              <p class="img"><img src="images/img_simple_3.jpg" alt="screen 1" width="309" height="236" /></p>
-              <img class="h2top" src="images/tt-03.png" width="448" height="64" alt="img" />
-              <p>Backup Empresarial de Seguros. Todos os meses a Bússola Seguros gera um arquivo .PDF com a informação individual de cada cliente. Um processo que permite histórico gerencial e customização de valores. Fale com nosso gerente.</p>
-              <p>&nbsp;</p>
-              <p><a href="#"><img src="images/bt-ler.gif" width="91" height="26" border="0" alt="view" /></a></p>
-            </div>
-          </li>
-        </ul>
       </div>
     </div>
   </div>
   <div class="clr"></div>
   <div class="tip">
-    <div class="Menu_resize">
-      <p>Fale conosco: +11 3154.7722 | bussola@bussolaseguros.com.br</p>
-      <img src="images/Twitter_img_1.jpg" width="26" height="33" alt="img" />
-      <p>Siga-nos no Twitter </p>
-    </div>
   </div>
   <div class="body">
     <div class="body_resize">
@@ -279,7 +248,7 @@ p#controls {
         <p><span>Por que nos contratar?</span></p>
         <p>Estabilizados desde 1987 no mercado, somos uma empresa séria, que leva ao nosso cliente a facilidade e customização de informação de seguros. A logística utilizada permite fácil acesso ao gerente de conta, criando ambiente transparente aos nossos processos. </p>
         <p><span>Equipe especializada</span> </p>
-        <p>Cada empresa tem o seu gerente, que é acompanhado por nosso setor de qualidade no atendimento e metodologia de processos. A certeza de estar em boas mãos é obtida desde o inicio de nosso trabalho. Conte com a Bússola.</p>
+        <p>Cada empresa tem o seu gerente, que é acompanhado por nosso setor de qualidade no atendimento e metodologia de processos. A certeza de estar em boas mãos é obtida desde o inicio de nosso trabalho.</p>
      </div>
      <div class="Serv">
      <h2>Serviços</h2>
@@ -294,7 +263,6 @@ p#controls {
      <div class="Serv">
        <h2>Fique por dentro!</h2>
        <p>Cada informação gera conhecimento, <a href="#">siga-nos</a> e fique por dentro do que acontece no meio dos Seguros.</p>
-       <p><img src="images/Twitter_img_2.jpg" width="147" height="52" alt="img" /></p>
        <p>Bussola ::: Corretora de Seguros Ltda<br />
         Rua Conselheiro Crispiniano, 53, 4 andar<br />
         01037-001, Centro, São Paulo - SP</p>
@@ -324,7 +292,7 @@ p#controls {
      <div class="Serv">
        <h2>Case Empresarial</h2>
        <p>“O acompanhamento de minha empresa pela Bússola foi vital para o entendimento do quanto se podia economizar em seguros...”</p>
-       <p><span>-John Smith</span></p>
+       <p><span>-</span></p>
      </div>
     </div>
     <div class="clr"></div>
