@@ -4,6 +4,9 @@ include('usuario.php');
 include('classes/arquivo.class.php');
 
 $area_user=$_SESSION['usertype'] ? array('all') : explode(',',$_SESSION['area']);
+$opt=$_SESSION['usertype'] ? 4 : 2;
+
+
 $arr=new Arquivo();
 if($_GET['do']=='excluir'){
     $ide=isset($_GET['id']) ? mysql_real_escape_string($_GET['id']) : null;
@@ -35,7 +38,7 @@ $temp=$arr->getArquivoByArea($area_user);
 			$("#tabela_arquivos").tablesorter( {
                             sortList: [[0,1]],
                             headers: {
-                                4: {
+                                <?echo $opt; ?>: {
                                     sorter: false
                                 }
                             }
@@ -96,8 +99,12 @@ if(strlen($_SESSION['message'])>0){
 
     <table id="tabela_arquivos" class="tablesorter">
     <thead>
+		<?
+		if($_SESSION['usertype']){
+		?>
             <th width="15%" height="15">Nome</th>
             <th width="10%" height="15">Tamanho</th>
+		<? } ?>
             <th width="40%" height="15">Descrição</th>
             <th width="14%" height="15">Enviado em</th>
             <th width="20%" height="15">Opção</th>
@@ -109,11 +116,16 @@ if(strlen($_SESSION['message'])>0){
             echo $thead;
         ?>
         <tr>
+			<?
+			if($_SESSION['usertype']){
+			?>
             <td><? echo $obj->nome; ?></td>
             <td><? 
-		$tam=$obj->tamanho/1024;
-		echo $tam > 1024 ? round(($tam/1024),1).' Mb' : round($tam).' Kb';
-		?></td>
+				$tam=$obj->tamanho/1024;
+				echo $tam > 1024 ? round(($tam/1024),1).' Mb' : round($tam).' Kb';
+				?>
+			</td>
+			<? } ?>
             <td><? echo $obj->descricao; ?></td>
             <td><?
             if($obj->datacad==null){
